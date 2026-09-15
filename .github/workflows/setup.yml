@@ -1,0 +1,26 @@
+name: Install AFL Daily Worker
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository
+        uses: actions/checkout@v4
+
+      - name: Extract AFL Daily worker
+        run: unzip -o AFL-Daily-AI-Worker-One-Tap-Upgrade.zip
+
+      - name: Save worker files
+        run: |
+          git config user.name "AFL Daily Worker"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/workflows/ worker/
+          git commit -m "Install AFL Daily AI Worker" || true
+          git push
